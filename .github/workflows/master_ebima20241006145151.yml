@@ -53,4 +53,4 @@ jobs:
           app-name: 'EBIMa20241006145151'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5D341176DDCF4DF7B37E01D54359B7CA }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_694643D959A54FCAAD73DB17737DDD1E }}
