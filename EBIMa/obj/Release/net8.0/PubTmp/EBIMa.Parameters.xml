@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="IIS Web Application Name" description="" value="EBIMa20241006145151" tags="IisApp">
+  <parameter name="IIS Web Application Name" description="" value="ebim-mtk-dashboard" tags="IisApp">
     <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\agil\\OneDrive\\Рабочий\ стол\\EBIMa\\EBIMa\\obj\\Release\\net8\.0\\PubTmp\\Out\\$" />
   </parameter>
 </parameters>

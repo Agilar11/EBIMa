@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EBIMa")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6429d1e9556a001ad135dd7d8078baffc77b6d72")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3a63a09b053086f5729fdf980324298d86a6ea19")]
 [assembly: System.Reflection.AssemblyProductAttribute("EBIMa")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EBIMa")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using EBIMa.Services;
+using EBIMa.DTO;
 
 namespace EBIMa.Controllers
 {
@@ -46,6 +47,7 @@ namespace EBIMa.Controllers
 				Floor = userRegister.Floor,
 				ApartmentNumber = userRegister.ApartmentNumber,
 				OwnerPhoneNumber = userRegister.OwnerPhoneNumber,
+				Role = userRegister.Role,  // Role set based on registration
 				VerificationToken = CreateRandomToken(),
 			};
 
@@ -126,6 +128,88 @@ namespace EBIMa.Controllers
 				passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
 			}
 		}
+
+
+		// Forgot Password
+		[HttpPost("ForgotPassword")]
+		public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto request)
+		{
+			// Check if the user exists
+			var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
+			if (user == null)
+			{
+				return BadRequest("İstifadəçi mövcud deyil.");
+			}
+
+			// Generate a reset token
+			user.PasswordResetToken = CreateRandomToken();
+			user.ResetTokenExpires = DateTime.Now.AddHours(1); // Token is valid for 1 hour
+			await _context.SaveChangesAsync();
+
+			// Send reset email
+			var resetLink = Url.Action("ResetPassword", "User", new { token = user.PasswordResetToken }, Request.Scheme);
+			string subject = "Parolun sıfırlanması";
+			string body = $"Zəhmət olmasa yeni parol təyin etmək üçün bu linkə klik edin: <a href='{resetLink}'>Parolu sıfırla</a>";
+
+			_emailService.SendEmail(user.Email, subject, body);
+
+			return Ok("Parolu sıfırlamaq üçün link email ünvanınıza göndərildi.");
+		}
+
+		// Reset Password
+		[HttpPost("ResetPassword")]
+		public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto request)
+		{
+			// Find the user by reset token
+			var user = await _context.Users.FirstOrDefaultAsync(u => u.PasswordResetToken == request.Token);
+			if (user == null || user.ResetTokenExpires < DateTime.Now)
+			{
+				return BadRequest("Yanlış və ya vaxtı bitmiş token.");
+			}
+
+			// Create new password hash and salt
+			CreatePasswordHash(request.NewPassword, out byte[] passwordHash, out byte[] passwordSalt);
+
+			// Update user's password
+			user.PasswordHash = passwordHash;
+			user.PasswordSalt = passwordSalt;
+			user.PasswordResetToken = null; // Clear the token after successful reset
+			user.ResetTokenExpires = null;
+			await _context.SaveChangesAsync();
+
+			return Ok("Parol uğurla yeniləndi.");
+		}
+
+
+
+
+
+
+		[HttpPost("SubmitRequest")]
+		public async Task<IActionResult> SubmitRequest([FromBody] ResidentRequest residentRequest)
+		{
+			// Fetch the resident from the database
+			var resident = await _context.Users.FirstOrDefaultAsync(u => u.Id == residentRequest.ResidentId && u.Role == "Resident");
+			if (resident == null)
+			{
+				return BadRequest("Resident not found.");
+			}
+
+			// Create the request
+			var request = new ResidentRequest
+			{
+				ResidentId = resident.Id,
+				RequestDetails = residentRequest.RequestDetails
+			};
+
+			_context.ResidentRequests.Add(request);
+			await _context.SaveChangesAsync();
+
+			return Ok("Request submitted successfully.");
+		}
+
+
+
 
 		// Method to create a random token for verification
 		private string CreateRandomToken()
