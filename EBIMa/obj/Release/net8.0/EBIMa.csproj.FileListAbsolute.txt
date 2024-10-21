@@ -137,3 +137,4 @@ C:\Users\agil\OneDrive\Рабочий стол\EBIMa\EBIMa\obj\Release\net8.0\EB
 C:\Users\agil\OneDrive\Рабочий стол\EBIMa\EBIMa\obj\Release\net8.0\EBIMa.genruntimeconfig.cache
 C:\Users\agil\OneDrive\Рабочий стол\EBIMa\EBIMa\obj\Release\net8.0\ref\EBIMa.dll
 C:\Users\agil\OneDrive\Рабочий стол\EBIMa\EBIMa\bin\Release\net8.0\Newtonsoft.Json.dll
+C:\Users\agil\OneDrive\Рабочий стол\EBIMa\EBIMa\bin\Release\net8.0\EBIMa.staticwebassets.runtime.json

@@ -1,11 +1,19 @@
 {
   "Version": 1,
-  "Hash": "4qs+q7JzTSq6OzQ1mG4x1dBZkUBhWbZq/vbpUh0jvx4=",
+  "Hash": "G8lQb4ATttC04TM9NWEzGzi98tZ6R1UPRPV/ZWpNums=",
   "Source": "EBIMa",
   "BasePath": "_content/EBIMa",
   "Mode": "Default",
   "ManifestType": "Publish",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "EBIMa\\wwwroot",
+      "Source": "EBIMa",
+      "ContentRoot": "C:\\Users\\agil\\OneDrive\\Рабочий стол\\EBIMa\\EBIMa\\wwwroot\\",
+      "BasePath": "_content/EBIMa",
+      "Pattern": "**"
+    }
+  ],
   "Assets": []
 }

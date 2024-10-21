@@ -61,5 +61,15 @@ namespace EBIMa.Controllers
 
 			return Ok("Request denied.");
 		}
+
+
+
+		[HttpGet("admin/forms")]
+		public IActionResult GetAllForms()
+		{
+			var forms = _context.PaymentForms.ToList();
+			return Ok(forms);
+		}
+
 	}
 }
