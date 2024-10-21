@@ -1,0 +1,293 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|c:\\users\\agil\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\ebima\\ebima\\controllers\\paymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|solutionrelative:ebima\\controllers\\paymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\ebima\\models\\paymentform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|solutionrelative:ebima\\models\\paymentform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\ebima\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|solutionrelative:ebima\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\ebima\\ebima.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|solutionrelative:ebima\\ebima.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\ebima\\controllers\\superintendentprofilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|solutionrelative:ebima\\controllers\\superintendentprofilecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\ebima\\data\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|solutionrelative:ebima\\data\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\ebima\\models\\userlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|solutionrelative:ebima\\models\\userlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\ebima\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|solutionrelative:ebima\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\ebima\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|solutionrelative:ebima\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\ebima\\services\\iemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|solutionrelative:ebima\\services\\iemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\ebima\\extentions\\serviceextentions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|solutionrelative:ebima\\extentions\\serviceextentions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\ebima\\dto\\forgotpassworddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|solutionrelative:ebima\\dto\\forgotpassworddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\ebima\\models\\residentrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|solutionrelative:ebima\\models\\residentrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\ebima\\models\\userregister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|solutionrelative:ebima\\models\\userregister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\ebima\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{4F8EDB18-CB8F-4A0C-B570-B2EB1E0BA312}|EBIMa\\EBIMa.csproj|solutionrelative:ebima\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 9,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0174dea2-fdbe-4ef1-8f99-c0beae78880f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{80c411e8-fd5e-4b16-914b-0d9d84172cc1}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "EBIMa",
+              "DocumentMoniker": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\EBIMa.csproj",
+              "RelativeDocumentMoniker": "EBIMa\\EBIMa.csproj",
+              "ToolTip": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\EBIMa.csproj",
+              "RelativeToolTip": "EBIMa\\EBIMa.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-10-20T14:10:28.082Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PaymentController.cs",
+              "DocumentMoniker": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Controllers\\PaymentController.cs",
+              "RelativeDocumentMoniker": "EBIMa\\Controllers\\PaymentController.cs",
+              "ToolTip": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Controllers\\PaymentController.cs",
+              "RelativeToolTip": "EBIMa\\Controllers\\PaymentController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-20T13:27:33.13Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PaymentForm.cs",
+              "DocumentMoniker": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Models\\PaymentForm.cs",
+              "RelativeDocumentMoniker": "EBIMa\\Models\\PaymentForm.cs",
+              "ToolTip": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Models\\PaymentForm.cs",
+              "RelativeToolTip": "EBIMa\\Models\\PaymentForm.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAA5wBAAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-20T13:25:07.355Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SuperintendentProfileController.cs",
+              "DocumentMoniker": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Controllers\\SuperintendentProfileController.cs",
+              "RelativeDocumentMoniker": "EBIMa\\Controllers\\SuperintendentProfileController.cs",
+              "ToolTip": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Controllers\\SuperintendentProfileController.cs",
+              "RelativeToolTip": "EBIMa\\Controllers\\SuperintendentProfileController.cs",
+              "ViewState": "AQIAAC8AAAAAAAAAAAAwwEgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T14:12:29.18Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ResidentRequest.cs",
+              "DocumentMoniker": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Models\\ResidentRequest.cs",
+              "RelativeDocumentMoniker": "EBIMa\\Models\\ResidentRequest.cs",
+              "ToolTip": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Models\\ResidentRequest.cs",
+              "RelativeToolTip": "EBIMa\\Models\\ResidentRequest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T14:10:49.001Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ForgotPasswordDto.cs",
+              "DocumentMoniker": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\DTO\\ForgotPasswordDto.cs",
+              "RelativeDocumentMoniker": "EBIMa\\DTO\\ForgotPasswordDto.cs",
+              "ToolTip": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\DTO\\ForgotPasswordDto.cs",
+              "RelativeToolTip": "EBIMa\\DTO\\ForgotPasswordDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T13:55:21.923Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ServiceExtentions.cs",
+              "DocumentMoniker": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Extentions\\ServiceExtentions.cs",
+              "RelativeDocumentMoniker": "EBIMa\\Extentions\\ServiceExtentions.cs",
+              "ToolTip": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Extentions\\ServiceExtentions.cs",
+              "RelativeToolTip": "EBIMa\\Extentions\\ServiceExtentions.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAACAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T15:41:47.66Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DataContext.cs",
+              "DocumentMoniker": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Data\\DataContext.cs",
+              "RelativeDocumentMoniker": "EBIMa\\Data\\DataContext.cs",
+              "ToolTip": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Data\\DataContext.cs",
+              "RelativeToolTip": "EBIMa\\Data\\DataContext.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-01T18:47:08.497Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IEmailService.cs",
+              "DocumentMoniker": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Services\\IEmailService.cs",
+              "RelativeDocumentMoniker": "EBIMa\\Services\\IEmailService.cs",
+              "ToolTip": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Services\\IEmailService.cs",
+              "RelativeToolTip": "EBIMa\\Services\\IEmailService.cs",
+              "ViewState": "AQIAAB0AAAAAAAAAAAAgwCkAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-02T17:41:16.557Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\appsettings.json",
+              "RelativeDocumentMoniker": "EBIMa\\appsettings.json",
+              "ToolTip": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\appsettings.json",
+              "RelativeToolTip": "EBIMa\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-10-02T17:26:42.725Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UserLogin.cs",
+              "DocumentMoniker": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Models\\UserLogin.cs",
+              "RelativeDocumentMoniker": "EBIMa\\Models\\UserLogin.cs",
+              "ToolTip": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Models\\UserLogin.cs",
+              "RelativeToolTip": "EBIMa\\Models\\UserLogin.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-02T16:29:57.841Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "EBIMa\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Controllers\\UserController.cs",
+              "RelativeToolTip": "EBIMa\\Controllers\\UserController.cs",
+              "ViewState": "AQIAALwAAAAAAAAAAAAxwMoAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-01T19:47:12.947Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "UserRegister.cs",
+              "DocumentMoniker": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Models\\UserRegister.cs",
+              "RelativeDocumentMoniker": "EBIMa\\Models\\UserRegister.cs",
+              "ToolTip": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Models\\UserRegister.cs",
+              "RelativeToolTip": "EBIMa\\Models\\UserRegister.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAmwCgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-01T19:38:24.066Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Program.cs",
+              "RelativeDocumentMoniker": "EBIMa\\Program.cs",
+              "ToolTip": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Program.cs",
+              "RelativeToolTip": "EBIMa\\Program.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAiwB0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-01T18:48:31.413Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Models\\User.cs",
+              "RelativeDocumentMoniker": "EBIMa\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\agil\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\EBIMa\\EBIMa\\Models\\User.cs",
+              "RelativeToolTip": "EBIMa\\Models\\User.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAqwAwAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-01T18:38:03.089Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
