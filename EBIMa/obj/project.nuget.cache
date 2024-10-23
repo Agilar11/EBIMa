@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "qlZASA6Hh5cmHwm/Q4dOYM9+O800ebDwxW1oPnBgKrYzrEeptWF4AvEazJmdc1RT6OcHdUv8V8keTsVbkj6EXw==",
+  "dgSpecHash": "LNMolx/m9PVCKyLVDBqdXatodDck2Logd4mCEFj6/HxUDVRib+AWvbm0yHelwH+ztzwWqrVzbZMkwK6/CKM+jA==",
   "success": true,
   "projectFilePath": "C:\\Users\\agil\\OneDrive\\Рабочий стол\\EBIMa\\EBIMa\\EBIMa.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\agil\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\agil\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
+    "C:\\Users\\agil\\.nuget\\packages\\fluentassertions\\6.12.1\\fluentassertions.6.12.1.nupkg.sha512",
     "C:\\Users\\agil\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\agil\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\agil\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.3.3\\microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512",

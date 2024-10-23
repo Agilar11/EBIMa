@@ -1,5 +1,31 @@
 [
   {
+    "ContainingType": "EBIMa.Controllers.ApplicationRequestsController",
+    "Method": "PostApplicationRequest",
+    "RelativePath": "api/ApplicationRequests",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "EBIMa.Models.ApplicationRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EBIMa.Controllers.ApplicationRequestsController",
+    "Method": "GetApplicationRequests",
+    "RelativePath": "api/ApplicationRequests",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "EBIMa.Controllers.PaymentController",
     "Method": "ApproveForm",
     "RelativePath": "api/Payment/approve/{id}",
