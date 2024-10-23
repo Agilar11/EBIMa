@@ -6,6 +6,8 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using EBIMa.Services;
 using EBIMa.DTO;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace EBIMa.Controllers
 {
@@ -215,6 +217,40 @@ namespace EBIMa.Controllers
 		private string CreateRandomToken()
 		{
 			return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
+		}
+
+
+
+
+		// Update user profile
+		[HttpPut("UpdateProfile")]
+		[Authorize] // Ensure that the user is logged in
+		public async Task<IActionResult> UpdateProfile([FromBody] UserProfileDto userProfileDto)
+		{
+			// Get the logged-in user's email from the authentication token
+			var userEmail = User.FindFirstValue(ClaimTypes.Email);
+
+			// Find the user by email
+			var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == userEmail);
+			if (user == null)
+			{
+				return NotFound("User not found.");
+			}
+
+			// Update user details
+			user.Name = userProfileDto.Name;
+			user.Email = userProfileDto.Email;
+			user.MTK = userProfileDto.MTK;
+			user.Building = userProfileDto.Building;
+			user.BlockNumber = userProfileDto.BlockNumber;
+			user.Floor = userProfileDto.Floor;
+			user.ApartmentNumber = userProfileDto.ApartmentNumber;
+			user.OwnerPhoneNumber = userProfileDto.OwnerPhoneNumber;
+
+			// Save changes to the database
+			await _context.SaveChangesAsync();
+
+			return Ok("Profile updated successfully.");
 		}
 	}
 }

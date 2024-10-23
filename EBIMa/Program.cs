@@ -3,6 +3,7 @@ global using Microsoft.EntityFrameworkCore;
 global using EBIMa.Models;
 global using EBIMa.Data;
 using EBIMa.Services;
+using FluentAssertions.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,23 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod()
             .AllowAnyHeader());
 });
+
+
+//object value = Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//	.AddJwtBearer(options =>
+//	{
+//		options.TokenValidationParameters = new TokenValidationParameters
+//		{
+//			ValidateIssuer = true,
+//			ValidateAudience = true,
+//			ValidateLifetime = true,
+//			ValidateIssuerSigningKey = true,
+//			ValidIssuer = Configuration["Jwt:Issuer"],
+//			ValidAudience = Configuration["Jwt:Issuer"],
+//			IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+//		};
+//	});
+
 
 var app = builder.Build();
 

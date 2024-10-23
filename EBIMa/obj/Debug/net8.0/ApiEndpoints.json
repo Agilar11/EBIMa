@@ -273,6 +273,22 @@
   },
   {
     "ContainingType": "EBIMa.Controllers.UserController",
+    "Method": "UpdateProfile",
+    "RelativePath": "api/User/UpdateProfile",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userProfileDto",
+        "Type": "EBIMa.DTO.UserProfileDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EBIMa.Controllers.UserController",
     "Method": "Verify",
     "RelativePath": "api/User/verify",
     "HttpMethod": "GET",
