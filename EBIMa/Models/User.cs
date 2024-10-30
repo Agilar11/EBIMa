@@ -23,6 +23,12 @@
 		public string OwnerPhoneNumber { get; set; } = string.Empty;
 		public string Role { get; set; } = "Resident"; // Default role is Resident
 
+		public int SquareMeterSize { get; set; }
+
+		public decimal CurrentPayment { get; set; } // Cari ödəniş məbləği
+		public DateTime LastPaymentReset { get; set; } // Ödəniş sıfırlanma tarixi
+
 		public ICollection<ApplicationRequest> ApplicationRequests { get; set; }
+		public ICollection<PaymentForm> PaymentForms { get; set; }
 	}
 }

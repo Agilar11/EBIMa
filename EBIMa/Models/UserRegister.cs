@@ -40,5 +40,10 @@ namespace EBIMa.Models
 		public string OwnerPhoneNumber { get; set; } = string.Empty;
 
 		public string Role { get; set; } = "Resident"; // Allow selecting role during registration
+
+		[Required(ErrorMessage = "Evin kvadrat metri daxil edilməlidir.")]
+		[Range(1, int.MaxValue, ErrorMessage = "Kvadrat metr müsbət bir ədəd olmalıdır.")]
+		public int SquareMeters { get; set; }
+
 	}
 }

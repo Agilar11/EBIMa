@@ -21,7 +21,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 // Register EmailService
 builder.Services.AddScoped<IEmailService, EmailService>();
-
+builder.Services.AddHostedService<PaymentResetService>();
 
 // Read the JWT key from configuration
 var jwtKey = builder.Configuration["Jwt:Key"];

@@ -54,7 +54,8 @@ namespace EBIMa.Controllers
 				ApartmentNumber = userRegister.ApartmentNumber,
 				OwnerPhoneNumber = userRegister.OwnerPhoneNumber,
 				Role = userRegister.Role,  // Role set based on registration
-				VerificationToken = CreateRandomToken(),
+				SquareMeterSize = userRegister.SquareMeters,
+				VerificationToken = CreateRandomToken()
 			};
 
 			_context.Users.Add(user);
@@ -121,10 +122,15 @@ namespace EBIMa.Controllers
 		public async Task<ActionResult<GetUserByIdDTO>> GetUserByIdAsync(int userId)
 		{
 			var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+			
+			if(user.VerifiedAt is null)
+			{
+				return BadRequest("İstifadəçi girişi təsdiqlənməyib.");
+			}
 
 			if (user is null)
 			{
-				return BadRequest("İstifadəçi mövcud deyil.");
+				return BadRequest("İstifadəçi mövcud deyil!");
 			}
 
 			var userDto = new GetUserByIdDTO
@@ -136,10 +142,16 @@ namespace EBIMa.Controllers
 				MTK = user.MTK,
 				BlockNumber = user.BlockNumber,
 				Floor = user.Floor,
-				ApartmentNumber = user.ApartmentNumber
+				ApartmentNumber = user.ApartmentNumber,
+				SquareMeters = user.SquareMeterSize,
+				MonthlyPayment = user.SquareMeterSize * 0.05M // Calculation
 			};
 
+
+			user.CurrentPayment = userDto.MonthlyPayment; // Cari ayın ödənişini təyin edin
+
 			return Ok(userDto);
+
 		}
 
 		[HttpPut("{userId}")]
@@ -147,7 +159,12 @@ namespace EBIMa.Controllers
 		{
 			var user = await _context.Users.FindAsync(userId);
 
-			if(user is null)
+			if (user.VerifiedAt is null)
+			{
+				return BadRequest("İstifadəçi girişi təsdiqlənməyib.");
+			}
+
+			if (user is null)
 			{
 				return BadRequest("İstifadəçi mövcud deyil.");
 			}

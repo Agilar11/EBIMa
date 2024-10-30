@@ -11,6 +11,13 @@
 		public DbSet<PaymentForm> PaymentForms { get; set; }
 		public DbSet<ApplicationRequest> ApplicationRequests { get; set; }
 
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<User>()
+				.Property(u => u.CurrentPayment)
+				.HasColumnType("decimal(18, 2)"); // 18 tam, 2 ondalık
+		}
+
 
 
 

@@ -26,6 +26,8 @@ namespace EBIMa.Controllers
 		[HttpPost("submit")]
 		public async Task<IActionResult> SubmitForm([FromForm] SubmitFormDTO form, IFormFile image)
 		{
+			var userId = int.Parse(User.Identity.Name);
+
 			if (ModelState.IsValid)
 			{
 				// Azure Blob Storage connection string
@@ -55,6 +57,7 @@ namespace EBIMa.Controllers
 
 					var paymentForm = new PaymentForm
 					{
+						UserId = userId,
 						BankCard = form.BankCard,
 						Month = form.Month,
 						Year = form.Year,
@@ -74,35 +77,6 @@ namespace EBIMa.Controllers
 		}
 
 		
-		[HttpPost("approve/{id}")]
-		public IActionResult ApproveForm(int id)
-		{
-			var form = _context.PaymentForms.Find(id);
-			if (form == null)
-			{
-				return NotFound();
-			}
-
-			form.Status = "Approved"; 
-			_context.SaveChanges();
-
-			return Ok(new { message = "Form təsdiq olundu!" });
-		}
-
-		[HttpPost("deny/{id}")]
-		public IActionResult DenyForm(int id)
-		{
-			var form = _context.PaymentForms.Find(id);
-			if (form == null)
-			{
-				return NotFound();
-			}
-
-			form.Status = "Denied"; // Form rədd edildi
-			_context.SaveChanges();
-
-			return Ok(new { message = "Form rədd edildi!" });
-		}
 
 		// İstifadəçinin öz formunun statusunu izləməsi üçün
 		// GET: api/payment/status/{id}

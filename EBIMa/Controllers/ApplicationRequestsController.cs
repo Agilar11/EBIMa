@@ -23,8 +23,11 @@ namespace EBIMa.Controllers
 				return BadRequest("Request type and message are required.");
 			}
 
+			var userId = int.Parse(User.Identity.Name);
+
 			var newRequests = new ApplicationRequest
 			{
+				UserId = userId,
 				RequestType = request.RequestType,
 				Message = request.Message,
 				Status = "Pending",
@@ -45,6 +48,7 @@ namespace EBIMa.Controllers
 				.Where(r => r.UserId == userId)
 				.OrderByDescending(r => r.CreatedAt)
 				.ToListAsync();
+
 
 			return Ok(requests);
 		}
