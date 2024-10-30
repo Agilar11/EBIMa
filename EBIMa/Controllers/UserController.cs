@@ -63,7 +63,8 @@ namespace EBIMa.Controllers
 			await _context.SaveChangesAsync();
 
 			// Generate verification link using the token
-			var verificationLink = Url.Action("Verify", "User", new { token = user.VerificationToken }, Request.Scheme);
+			//var verificationLink = Url.Action("Verify", "User", new { token = user.VerificationToken }, Request.Scheme);
+			string verificationLink = $"https://ebim-project.netlify.app/verify?token={user.VerificationToken}";
 
 			// Send email
 			string subject = "Email təsdiqləmə";
