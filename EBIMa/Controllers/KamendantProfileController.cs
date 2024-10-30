@@ -93,7 +93,9 @@ namespace EBIMa.Controllers
 			return Ok("Ödəniş sıfırlandı.");
 		}
 
-		// ApplicationRequest
+
+		// ApplicationRequests
+
 
 		[HttpGet]
 		public async Task<ActionResult<IEnumerable<GetApplicationRequestsDTO>>> GetApplicationRequestsAsync()
