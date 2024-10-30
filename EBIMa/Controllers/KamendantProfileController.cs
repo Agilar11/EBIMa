@@ -104,6 +104,7 @@ namespace EBIMa.Controllers
 				.Include(u => u.User)
 				.Select(u => new GetApplicationRequestsDTO
 				{
+					RequestId = u.Id,
 					ApartmentNumber = u.User.ApartmentNumber,
 					RequestType = u.RequestType,
 					CreatedAt = u.CreatedAt,
