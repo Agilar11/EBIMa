@@ -23,11 +23,10 @@ namespace EBIMa.Controllers
 				return BadRequest("Request type and message are required.");
 			}
 
-			var userId = int.Parse(User.Identity.Name);
-
+			
 			var newRequests = new ApplicationRequest
 			{
-				UserId = userId,
+				UserId = request.UserId,
 				RequestType = request.RequestType,
 				Message = request.Message,
 				Status = "Pending",

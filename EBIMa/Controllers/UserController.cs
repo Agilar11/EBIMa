@@ -8,6 +8,7 @@ using EBIMa.Services;
 using EBIMa.DTO;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace EBIMa.Controllers
 {
@@ -302,6 +303,13 @@ namespace EBIMa.Controllers
 			};
 			var token = tokenHandler.CreateToken(tokenDescriptor);
 			return tokenHandler.WriteToken(token);
+		}
+
+
+		[HttpPost("logout")]
+		public  IActionResult Logout()
+		{
+			return Ok("İstifadəçi uğurla çıxış etdi.");
 		}
 	}
 }

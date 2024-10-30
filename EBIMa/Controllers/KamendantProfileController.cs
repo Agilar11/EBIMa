@@ -105,6 +105,7 @@ namespace EBIMa.Controllers
 				.Select(u => new GetApplicationRequestsDTO
 				{
 					RequestId = u.Id,
+					FullName = u.User.Name + " " + u.User.SurName, 
 					ApartmentNumber = u.User.ApartmentNumber,
 					RequestType = u.RequestType,
 					CreatedAt = u.CreatedAt,
