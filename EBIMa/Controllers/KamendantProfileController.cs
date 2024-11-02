@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using EBIMa.Models;
 using System.Threading.Tasks;
 using EBIMa.DTO;
+using Azure.Core;
 
 namespace EBIMa.Controllers
 {
@@ -18,6 +19,8 @@ namespace EBIMa.Controllers
 			_context = context;
 			_emailService = emailService;
 		}
+
+		#region Resident Requests
 
 		// Get all requests for a specific superintendent
 		[HttpGet("GetRequests")]
@@ -65,39 +68,90 @@ namespace EBIMa.Controllers
 			return Ok("Request denied.");
 		}
 
-		[HttpGet("admin/forms")]
-		public IActionResult GetAllForms()
+		#endregion
+
+		#region Payments
+
+		[HttpGet("Payments")]
+		public async Task<ActionResult<IEnumerable<GetPaymentFormsDTO>>> GetPayments()
 		{
-			var forms = _context.PaymentForms.ToList();
-			return Ok(forms);
+			var payments =  await _context.PaymentForms
+				.Include(u => u.User)
+				.Select(p => new GetPaymentFormsDTO
+				{
+					Id = p.Id,
+					FullName = (p.User.Name + " " + p.User.SurName),
+					ApartmentNumber = p.User.ApartmentNumber,
+					Month = p.Month,
+					PaymentDate = p.PaymentDate,
+					Status = p.Status,
+					ImagePath = p.ImagePath
+				}).ToListAsync();
+
+			return Ok(payments);
 		}
 
-
-		// Payment
-
-		[HttpPost("ApprovePayment/{userId}")]
-		public async Task<IActionResult> ApprovePayment(int userId)
+		[HttpPost("ApprovePayment/{paymentId}")]
+		public async Task<IActionResult> ApprovePayment(int paymentId)
 		{
-			var user = await _context.Users
-				.Include(u => u.PaymentForms)
-				.SingleOrDefaultAsync(u => u.Id == userId);
+			var payment = await _context.PaymentForms
+				.Include(p => p.User)
+				.SingleOrDefaultAsync(p => p.Id == paymentId);
 
-			if (user == null)
+			if (payment is null)
 			{
-				return NotFound("İstifadəçi tapılmadı.");
+				return NotFound("Payment not found.");
 			}
 
-			user.CurrentPayment = 0; // Ödəniş sıfırlanır
+			payment.Status = "Approved";
+			payment.User.CurrentPayment = 0; // Ödəniş sıfırlanır
 			await _context.SaveChangesAsync();
 
-			return Ok("Ödəniş sıfırlandı.");
+			return Ok("Payment Approved.");
 		}
 
+		[HttpPost("PendingPayment/{paymentId}")]
+		public async Task<IActionResult> PendingPayment(int paymentId)
+		{
+			var payment = await _context.PaymentForms
+				.Include(p => p.User)
+				.SingleOrDefaultAsync(p => p.Id == paymentId);
 
-		// ApplicationRequests
+			if (payment is null)
+			{
+				return NotFound("Payment not found.");
+			}
+
+			payment.Status = "Pending";
+			await _context.SaveChangesAsync();
+
+			return Ok("Payment Pending.");
+		}
+
+		[HttpPost("DeniedPayment/{paymentId}")]
+		public async Task<IActionResult> DeniedPayment(int paymentId)
+		{
+			var payment = await _context.PaymentForms
+				.Include(p => p.User)
+				.SingleOrDefaultAsync(p => p.Id == paymentId);
+
+			if (payment is null)
+			{
+				return NotFound("Payment not found.");
+			}
+
+			payment.Status = "Denied";
+			await _context.SaveChangesAsync();
+
+			return Ok("Payment Denied.");
+		}
+
+		#endregion
+
+		#region  ApplicationRequests
 
 
-		[HttpGet]
+		[HttpGet("ApplicationRequests")]
 		public async Task<ActionResult<IEnumerable<GetApplicationRequestsDTO>>> GetApplicationRequestsAsync()
 		{
 			var userRequests = await _context.ApplicationRequests
@@ -116,7 +170,7 @@ namespace EBIMa.Controllers
 
 		}
 
-		[HttpGet("{requestId}")]
+		[HttpGet("ApplicationRequests/{requestId}")]
 		public async Task<ActionResult<GetApplicationRequestsByIdDTO>> GetApplicationRequestsByIdAsync(int requestId)
 		{
 			var userRequests = await _context.ApplicationRequests
@@ -141,7 +195,7 @@ namespace EBIMa.Controllers
 
 		}
 
-		[HttpPost("ApproveApplicationRequest/{requestId}")]
+		[HttpPut("ApproveApplicationRequest/{requestId}")]
 		public async Task<IActionResult> ApproveApplicationRequest(int requestId)
 		{
 			var request = await _context.ApplicationRequests
@@ -164,7 +218,7 @@ namespace EBIMa.Controllers
 			return Ok("Request Approved.");
 		}
 
-		[HttpPost("DeniedApplicationRequest/{requestId}")]
+		[HttpPut("DeniedApplicationRequest/{requestId}")]
 		public async Task<IActionResult> DeniedApplicationRequest(int requestId)
 		{
 			var request = await _context.ApplicationRequests
@@ -188,6 +242,50 @@ namespace EBIMa.Controllers
 
 		}
 
+		[HttpPut("PendingApplicationRequest/{requestId}")]
+		public async Task<IActionResult> PendingApplicationRequest(int requestId)
+		{
+			var request = await _context.ApplicationRequests
+				.Include(u => u.User)
+				.SingleOrDefaultAsync(r => r.Id == requestId);
 
+			if (request is null)
+			{
+				return NotFound("Request not found.");
+			}
+
+			request.Status = "Pending";
+			await _context.SaveChangesAsync();
+
+			string subject = "Müraciətlər";
+			string body = $"Sizin müraciətinizə baxılır.Təşəkürlər!";
+
+			_emailService.SendEmail(request.User.Email, subject, body);
+
+			return Ok("Request Pending.");
+
+		}
+
+		#endregion
+
+		#region Notification
+
+		[HttpPost("Notification")]
+		public async Task<IActionResult> SubmitNotification(string message)
+		{
+			var users = await _context.Users.ToListAsync();
+
+			string subject = "Bildiriş";
+			string body = message;
+
+			foreach (var user in users)
+			{
+				_emailService.SendEmail(user.Email, subject, body);
+			}
+
+			return Ok("Bütün sakinlərə bildiriş göndərildi.");
+		}
+
+		#endregion
 	}
 }

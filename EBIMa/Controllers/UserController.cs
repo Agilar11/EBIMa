@@ -221,7 +221,8 @@ namespace EBIMa.Controllers
 			await _context.SaveChangesAsync();
 
 			// Send reset email
-			var resetLink = Url.Action("ResetPassword", "User", new { token = user.PasswordResetToken }, Request.Scheme);
+			//var resetLink = Url.Action("ResetPassword", "User", new { token = user.PasswordResetToken }, Request.Scheme);
+			var resetLink = $"https://ebim-project.netlify.app/resetpassword?token={user.PasswordResetToken}";
 			string subject = "Parolun sıfırlanması";
 			string body = $"Zəhmət olmasa yeni parol təyin etmək üçün bu linkə klik edin: <a href='{resetLink}'>Parolu sıfırla</a>";
 

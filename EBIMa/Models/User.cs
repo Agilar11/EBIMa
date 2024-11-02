@@ -28,7 +28,7 @@
 		public decimal CurrentPayment { get; set; } // Cari ödəniş məbləği
 		public DateTime LastPaymentReset { get; set; } // Ödəniş sıfırlanma tarixi
 
-		public ICollection<ApplicationRequest> ApplicationRequests { get; set; }
-		public ICollection<PaymentForm> PaymentForms { get; set; }
+		public ICollection<ApplicationRequest>? ApplicationRequests { get; set; }
+		public ICollection<PaymentForm>? PaymentForms { get; set; }
 	}
 }
