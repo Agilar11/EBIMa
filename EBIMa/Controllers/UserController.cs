@@ -9,6 +9,11 @@ using EBIMa.DTO;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Oauth2.v2;
+using Google.Apis.Services;
+using Google.Apis.PeopleService.v1;
+using EBIMa.Models;
 
 namespace EBIMa.Controllers
 {
@@ -28,9 +33,11 @@ namespace EBIMa.Controllers
 			_configuration = configuration;
 		}
 
+
 		[HttpPost("Register")]
 		public async Task<IActionResult> Register([FromBody] UserRegister userRegister)
 		{
+			
 			// Check if the user already exists asynchronously
 			if (await _context.Users.AnyAsync(u => u.Email == userRegister.Email))
 			{
@@ -64,7 +71,7 @@ namespace EBIMa.Controllers
 
 			// Generate verification link using the token
 			//var verificationLink = Url.Action("Verify", "User", new { token = user.VerificationToken }, Request.Scheme);
-			string verificationLink = $"https://ebim-project.netlify.app/verify?token={user.VerificationToken}";
+			string verificationLink = $"https://user.ebim.az/verify?token={user.VerificationToken}";
 
 			// Send email
 			string subject = "Email təsdiqləmə";
@@ -101,7 +108,7 @@ namespace EBIMa.Controllers
 
 			string token = GenerateJwtToken(user);
 
-			return Ok(new {UserId = user.Id, Token = token});
+			return Ok(new {UserId = user.Id,Role = user.Role, Token = token});
 		}
 
 		[HttpGet("verify")]
@@ -121,7 +128,7 @@ namespace EBIMa.Controllers
 		}
 
 		[HttpGet("{userId}")]
-		public async Task<ActionResult<GetUserByIdDTO>> GetUserByIdAsync(int userId)
+		public async Task<ActionResult<GetUserByIdDTO>> GetUserByIdAsync(Guid userId)
 		{
 			var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
 			
@@ -157,7 +164,7 @@ namespace EBIMa.Controllers
 		}
 
 		[HttpPut("{userId}")]
-		public async Task<IActionResult> UpdateUserAsync(int userId,[FromBody] UpdateUserDTO newUser)
+		public async Task<IActionResult> UpdateUserAsync(Guid userId,[FromBody] UpdateUserDTO newUser)
 		{
 			var user = await _context.Users.FindAsync(userId);
 
@@ -222,7 +229,7 @@ namespace EBIMa.Controllers
 
 			// Send reset email
 			//var resetLink = Url.Action("ResetPassword", "User", new { token = user.PasswordResetToken }, Request.Scheme);
-			var resetLink = $"https://ebim-project.netlify.app/resetpassword?token={user.PasswordResetToken}";
+			var resetLink = $"https://user.ebim.az/verify?token={user.PasswordResetToken}";
 			string subject = "Parolun sıfırlanması";
 			string body = $"Zəhmət olmasa yeni parol təyin etmək üçün bu linkə klik edin: <a href='{resetLink}'>Parolu sıfırla</a>";
 
@@ -259,7 +266,6 @@ namespace EBIMa.Controllers
 		}
 
 
-
 		[HttpPost("SubmitRequest")]
 		public async Task<IActionResult> SubmitRequest([FromBody] ResidentRequest residentRequest)
 		{
@@ -281,6 +287,17 @@ namespace EBIMa.Controllers
 			await _context.SaveChangesAsync();
 
 			return Ok("Request submitted successfully.");
+		}
+
+
+
+		
+
+
+		[HttpPost("logout")]
+		public  IActionResult Logout()
+		{
+			return Ok("İstifadəçi uğurla çıxış etdi.");
 		}
 
 
@@ -307,11 +324,5 @@ namespace EBIMa.Controllers
 			return tokenHandler.WriteToken(token);
 		}
 
-
-		[HttpPost("logout")]
-		public  IActionResult Logout()
-		{
-			return Ok("İstifadəçi uğurla çıxış etdi.");
-		}
 	}
 }

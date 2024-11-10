@@ -1,4 +1,5 @@
-﻿namespace EBIMa.Data
+﻿
+namespace EBIMa.Data
 {
 	public class DataContext : DbContext
 	{
@@ -10,6 +11,7 @@
 		public DbSet<ResidentRequest> ResidentRequests => Set<ResidentRequest>(); // Add ResidentRequests to DataContext
 		public DbSet<PaymentForm> PaymentForms { get; set; }
 		public DbSet<ApplicationRequest> ApplicationRequests { get; set; }
+		public DbSet<ServiceSupply> ServiceSupplys { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

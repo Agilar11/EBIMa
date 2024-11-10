@@ -41,10 +41,16 @@ namespace EBIMa.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> GetApplicationRequests(int userId)
+		public async Task<IActionResult> GetApplicationRequests(Guid userId)
 		{
 			var requests = await _context.ApplicationRequests
 				.Where(r => r.UserId == userId)
+				.Select(r => new UserApplicationRequestsDTO
+				{
+					CreatedAt = r.CreatedAt,
+					RequestType = r.RequestType,
+					Status = r.Status
+				})
 				.OrderByDescending(r => r.CreatedAt)
 				.ToListAsync();
 

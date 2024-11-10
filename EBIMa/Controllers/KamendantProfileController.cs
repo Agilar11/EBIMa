@@ -75,7 +75,7 @@ namespace EBIMa.Controllers
 		[HttpGet("Payments")]
 		public async Task<ActionResult<IEnumerable<GetPaymentFormsDTO>>> GetPayments()
 		{
-			var payments =  await _context.PaymentForms
+			var payments = await _context.PaymentForms
 				.Include(u => u.User)
 				.Select(p => new GetPaymentFormsDTO
 				{
@@ -91,8 +91,8 @@ namespace EBIMa.Controllers
 			return Ok(payments);
 		}
 
-		[HttpPost("ApprovePayment/{paymentId}")]
-		public async Task<IActionResult> ApprovePayment(int paymentId)
+		[HttpPut("ApprovePayment/{paymentId}")]
+		public async Task<IActionResult> ApprovePayment(Guid paymentId)
 		{
 			var payment = await _context.PaymentForms
 				.Include(p => p.User)
@@ -110,8 +110,8 @@ namespace EBIMa.Controllers
 			return Ok("Payment Approved.");
 		}
 
-		[HttpPost("PendingPayment/{paymentId}")]
-		public async Task<IActionResult> PendingPayment(int paymentId)
+		[HttpPut("PendingPayment/{paymentId}")]
+		public async Task<IActionResult> PendingPayment(Guid paymentId)
 		{
 			var payment = await _context.PaymentForms
 				.Include(p => p.User)
@@ -128,8 +128,8 @@ namespace EBIMa.Controllers
 			return Ok("Payment Pending.");
 		}
 
-		[HttpPost("DeniedPayment/{paymentId}")]
-		public async Task<IActionResult> DeniedPayment(int paymentId)
+		[HttpPut("DeniedPayment/{paymentId}")]
+		public async Task<IActionResult> DeniedPayment(Guid paymentId)
 		{
 			var payment = await _context.PaymentForms
 				.Include(p => p.User)
@@ -150,7 +150,6 @@ namespace EBIMa.Controllers
 
 		#region  ApplicationRequests
 
-
 		[HttpGet("ApplicationRequests")]
 		public async Task<ActionResult<IEnumerable<GetApplicationRequestsDTO>>> GetApplicationRequestsAsync()
 		{
@@ -159,7 +158,7 @@ namespace EBIMa.Controllers
 				.Select(u => new GetApplicationRequestsDTO
 				{
 					RequestId = u.Id,
-					FullName = u.User.Name + " " + u.User.SurName, 
+					FullName = u.User.Name + " " + u.User.SurName,
 					ApartmentNumber = u.User.ApartmentNumber,
 					RequestType = u.RequestType,
 					CreatedAt = u.CreatedAt,
@@ -171,13 +170,13 @@ namespace EBIMa.Controllers
 		}
 
 		[HttpGet("ApplicationRequests/{requestId}")]
-		public async Task<ActionResult<GetApplicationRequestsByIdDTO>> GetApplicationRequestsByIdAsync(int requestId)
+		public async Task<ActionResult<GetApplicationRequestsByIdDTO>> GetApplicationRequestsByIdAsync(Guid requestId)
 		{
 			var userRequests = await _context.ApplicationRequests
 				.Include(u => u.User)
-				.SingleOrDefaultAsync (u => u.Id == requestId);
+				.SingleOrDefaultAsync(u => u.Id == requestId);
 
-			if(userRequests is null)
+			if (userRequests is null)
 			{
 				return NotFound("Request not found");
 			}
@@ -196,18 +195,18 @@ namespace EBIMa.Controllers
 		}
 
 		[HttpPut("ApproveApplicationRequest/{requestId}")]
-		public async Task<IActionResult> ApproveApplicationRequest(int requestId)
+		public async Task<IActionResult> ApproveApplicationRequest(Guid requestId)
 		{
 			var request = await _context.ApplicationRequests
-				.Include (u => u.User)
+				.Include(u => u.User)
 				.SingleOrDefaultAsync(r => r.Id == requestId);
-			
+
 			if (request is null)
 			{
 				return NotFound("Request not found.");
 			}
 
-			request.Status = "Approved"; 
+			request.Status = "Approved";
 			await _context.SaveChangesAsync();
 
 			string subject = "Müraciətlər";
@@ -219,7 +218,7 @@ namespace EBIMa.Controllers
 		}
 
 		[HttpPut("DeniedApplicationRequest/{requestId}")]
-		public async Task<IActionResult> DeniedApplicationRequest(int requestId)
+		public async Task<IActionResult> DeniedApplicationRequest(Guid requestId)
 		{
 			var request = await _context.ApplicationRequests
 				.Include(u => u.User)
@@ -243,7 +242,7 @@ namespace EBIMa.Controllers
 		}
 
 		[HttpPut("PendingApplicationRequest/{requestId}")]
-		public async Task<IActionResult> PendingApplicationRequest(int requestId)
+		public async Task<IActionResult> PendingApplicationRequest(Guid requestId)
 		{
 			var request = await _context.ApplicationRequests
 				.Include(u => u.User)
@@ -268,7 +267,7 @@ namespace EBIMa.Controllers
 
 		#endregion
 
-		#region Notification
+		#region Home
 
 		[HttpPost("Notification")]
 		public async Task<IActionResult> SubmitNotification(string message)
@@ -276,7 +275,7 @@ namespace EBIMa.Controllers
 			var users = await _context.Users.ToListAsync();
 
 			string subject = "Bildiriş";
-			string body = message;
+			string body = $"<h3>{message}</h3>";
 
 			foreach (var user in users)
 			{
@@ -286,6 +285,89 @@ namespace EBIMa.Controllers
 			return Ok("Bütün sakinlərə bildiriş göndərildi.");
 		}
 
+		[HttpGet("LastPayments")]
+		public async Task<ActionResult<IEnumerable<LastPaymentsDTO>>> LastPaymentsAsync()
+		{
+			var payments = await _context.PaymentForms
+				.Include(p => p.User)
+				.Select(p => new LastPaymentsDTO
+				{
+					ApartmentNumber = p.User.ApartmentNumber,
+					PaymentDate = p.PaymentDate,
+					Month = p.Month,
+					CurrentPayment = p.User.SquareMeterSize * 0.05M,
+					Status = p.Status,
+					ImagePath = p.ImagePath
+				}).OrderByDescending(p => p.PaymentDate)
+				.ToListAsync();
+
+			return payments;
+		}
+
+
 		#endregion
+
+		#region Apartment
+
+		[HttpGet("Apartments")]
+		public async Task<ActionResult<IEnumerable<ApartmentsDTO>>> GetUserApartmentsAsync()
+		{
+			var users = await _context.Users
+				.Select(u => new ApartmentsDTO
+				{
+					UserId = u.Id,
+					ApartmentNumber = u.ApartmentNumber,
+					FullName = u.Name + " " + u.SurName,
+					PhoneNumber = u.OwnerPhoneNumber
+				}).ToListAsync();
+
+			return users;
+		}
+
+		[HttpGet("Apartments/{userId}")]
+		public async Task<ActionResult<GetUserByIdDTO>> GetUserByIdAsync(Guid userId)
+		{
+			var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+			if (user is null)
+			{
+				return BadRequest("İstifadəçi mövcud deyil!");
+			}
+
+			var userDto = new GetUserByIdDTO
+			{
+				Name = user.Name,
+				Surname = user.SurName,
+				Email = user.Email,
+				PhoneNumber = user.OwnerPhoneNumber,
+				MTK = user.MTK,
+				BlockNumber = user.BlockNumber,
+				Floor = user.Floor,
+				ApartmentNumber = user.ApartmentNumber,
+				SquareMeters = user.SquareMeterSize,
+				MonthlyPayment = user.SquareMeterSize * 0.05M // Calculation
+			};
+
+			return Ok(userDto);
+
+		}
+
+		#endregion
+
+
+
+		/*[HttpDelete("{id}")]
+		public async Task<IActionResult> DeleteUser(Guid id)
+		{
+			var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == id);
+
+			_context.Users.Remove(user);
+			await _context.SaveChangesAsync();
+			return Ok("silindi");
+		*/
+
+
 	}
 }
+	
+

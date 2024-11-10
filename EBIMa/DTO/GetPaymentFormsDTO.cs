@@ -2,7 +2,7 @@
 {
 	public class GetPaymentFormsDTO
 	{
-		public int Id { get; set; }
+		public Guid Id { get; set; }
 		public string? FullName { get; set; }
 		public string? ApartmentNumber { get; set; }
 		public string? Month { get; set; }

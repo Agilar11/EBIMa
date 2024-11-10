@@ -2,8 +2,8 @@
 {
 	public class ResidentRequest
 	{
-		public int Id { get; set; }
-		public int ResidentId { get; set; } // The resident making the request
+		public Guid Id { get; set; } = new Guid();
+		public Guid ResidentId { get; set; } // The resident making the request
 		public User Resident { get; set; } = default!;
 
 		public string RequestDetails { get; set; } = string.Empty; // Details of the request

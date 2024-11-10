@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EBIMa.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241024134028_createapplicationrequests")]
-    partial class createapplicationrequests
+    [Migration("20241104193710_newp")]
+    partial class newp
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,9 @@ namespace EBIMa.Migrations
 
             modelBuilder.Entity("EBIMa.Models.ApplicationRequest", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -45,18 +43,21 @@ namespace EBIMa.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("ApplicationRequests");
                 });
 
             modelBuilder.Entity("EBIMa.Models.PaymentForm", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("BankCard")
                         .HasColumnType("nvarchar(max)");
@@ -67,27 +68,33 @@ namespace EBIMa.Migrations
                     b.Property<string>("Month")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("PaymentDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("QueryType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Year")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("PaymentForms");
                 });
 
             modelBuilder.Entity("EBIMa.Models.ResidentRequest", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -99,8 +106,8 @@ namespace EBIMa.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ResidentId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ResidentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -111,11 +118,9 @@ namespace EBIMa.Migrations
 
             modelBuilder.Entity("EBIMa.Models.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ApartmentNumber")
                         .IsRequired()
@@ -129,6 +134,9 @@ namespace EBIMa.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("CurrentPayment")
+                        .HasColumnType("decimal(18, 2)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -136,6 +144,9 @@ namespace EBIMa.Migrations
                     b.Property<string>("Floor")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastPaymentReset")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("MTK")
                         .IsRequired()
@@ -167,6 +178,13 @@ namespace EBIMa.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SquareMeterSize")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SurName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("VerificationToken")
                         .HasColumnType("nvarchar(max)");
 
@@ -178,6 +196,28 @@ namespace EBIMa.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("EBIMa.Models.ApplicationRequest", b =>
+                {
+                    b.HasOne("EBIMa.Models.User", "User")
+                        .WithMany("ApplicationRequests")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("EBIMa.Models.PaymentForm", b =>
+                {
+                    b.HasOne("EBIMa.Models.User", "User")
+                        .WithMany("PaymentForms")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("EBIMa.Models.ResidentRequest", b =>
                 {
                     b.HasOne("EBIMa.Models.User", "Resident")
@@ -187,6 +227,13 @@ namespace EBIMa.Migrations
                         .IsRequired();
 
                     b.Navigation("Resident");
+                });
+
+            modelBuilder.Entity("EBIMa.Models.User", b =>
+                {
+                    b.Navigation("ApplicationRequests");
+
+                    b.Navigation("PaymentForms");
                 });
 #pragma warning restore 612, 618
         }

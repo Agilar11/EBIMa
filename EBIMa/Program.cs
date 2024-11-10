@@ -19,6 +19,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
 // Register EmailService
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddHostedService<PaymentResetService>();
@@ -44,6 +45,7 @@ builder.Services.AddAuthentication(options =>
 		ValidateAudience = false
 	};
 });
+
 
 builder.Services.AddAuthorization();
 

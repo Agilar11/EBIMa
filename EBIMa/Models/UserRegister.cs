@@ -1,4 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using DnsClient;
+using DnsClient.Protocol;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Oauth2.v2;
+using Google.Apis.Services;
 
 namespace EBIMa.Models
 {
@@ -14,6 +19,7 @@ namespace EBIMa.Models
 
 		[Required(ErrorMessage = "Email sahəsi tələb olunur.")]
 		[EmailAddress(ErrorMessage = "Düzgün email daxil edin.")]
+		[CustomValidation(typeof(UserRegister), nameof(ValidateDomain))]
 		public string Email { get; set; } = string.Empty;
 
 		[Required(ErrorMessage = "Şifrə sahəsi tələb olunur.")]
@@ -45,5 +51,49 @@ namespace EBIMa.Models
 		[Range(1, int.MaxValue, ErrorMessage = "Kvadrat metr müsbət bir ədəd olmalıdır.")]
 		public int SquareMeters { get; set; }
 
+
+		public static ValidationResult ValidateDomain(object value, ValidationContext context)
+		{
+			if (value is string email)
+			{
+				// Emaili '@' işarəsinə görə bölüb domaini əldə edirik
+				var domain = email.Split('@')[1];
+
+				// Domen üçün MX qeydinin olub-olmadığını yoxlayırıq
+				if (!HasMXRecord(domain))
+				{
+					return new ValidationResult("Bu domen email qəbul etmir və ya mövcud deyil.");
+				}
+			}
+			else
+			{
+				return new ValidationResult("Email formatı düzgün deyil.");
+			}
+
+			return ValidationResult.Success;
+		}
+
+		private static bool HasMXRecord(string domain)
+		{
+			try
+			{
+				var lookup = new LookupClient();
+				var result = lookup.Query(domain, QueryType.MX);
+
+				// MX qeydlərini yoxlamaq üçün fərqli bir metoddan istifadə
+				foreach (var record in result.Answers)
+				{
+					if (record is MxRecord)
+					{
+						return true;
+					}
+				}
+				return false;
+			}
+			catch
+			{
+				return false;
+			}
+		}
 	}
 }

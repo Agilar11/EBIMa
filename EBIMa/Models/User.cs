@@ -2,7 +2,7 @@
 {
 	public class User
 	{
-		public int Id { get; set; }
+		public Guid Id { get; set; } = new Guid();
 		public string Name { get; set; } = string.Empty;
 		public string SurName { get; set; } = string.Empty;
 		public string Email { get; set; } = string.Empty;
@@ -17,9 +17,9 @@
 		// Apartment
 		public string MTK { get; set; } = string.Empty;
 		public string Building { get; set; } = string.Empty;
-		public string BlockNumber { get; set; } = string.Empty;
-		public string Floor { get; set; } = string.Empty;
-		public string ApartmentNumber { get; set; } = string.Empty;
+		public string? BlockNumber { get; set; } = string.Empty;
+		public string? Floor { get; set; } = string.Empty;
+		public string? ApartmentNumber { get; set; } = string.Empty;
 		public string OwnerPhoneNumber { get; set; } = string.Empty;
 		public string Role { get; set; } = "Resident"; // Default role is Resident
 

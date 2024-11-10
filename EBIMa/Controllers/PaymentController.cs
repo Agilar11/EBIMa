@@ -26,12 +26,12 @@ namespace EBIMa.Controllers
 		[HttpPost("submit")]
 		public async Task<IActionResult> SubmitForm([FromForm] SubmitFormDTO form, IFormFile image)
 		{
-			var userId = int.Parse(User.Identity.Name);
-
 			if (ModelState.IsValid)
 			{
 				// Azure Blob Storage connection string
-				string connectionString = Environment.GetEnvironmentVariable("azureconnectionstring");
+				//string connectionString = Environment.GetEnvironmentVariable("connectionstring");
+
+				string connectionString = _configuration.GetValue<string>("AzureStorage:ConnectionString");
 				string containerName = "upload"; // Yüklənəcək konteyner adı
 
 				if (image != null && image.Length > 0)
@@ -57,7 +57,7 @@ namespace EBIMa.Controllers
 
 					var paymentForm = new PaymentForm
 					{
-						UserId = userId,
+						UserId = form.UserId,
 						BankCard = form.BankCard,
 						Month = form.Month,
 						Year = form.Year,
@@ -76,9 +76,33 @@ namespace EBIMa.Controllers
 			return BadRequest(ModelState);
 		}
 
-		
 
-		// İstifadəçinin öz formunun statusunu izləməsi üçün
+		[HttpGet("History/{userId}")]
+		public async Task<ActionResult<IEnumerable<UserPaymentHistoryDTO>>> GetPaymentHistory(Guid userId)
+		{
+			if (!await _context.Users.AnyAsync(u => u.Id == userId))
+			{
+				return BadRequest("İstifadəçi mövcud deyil.");
+			}
+
+			var payments = await _context.PaymentForms
+				.Include(u => u.User)
+				.Where(u => u.UserId == userId)
+				.Select(u => new UserPaymentHistoryDTO
+				{
+					PaymentDate = u.PaymentDate,
+					Month = u.Month,
+					Status = u.Status,
+					ImagePath = u.ImagePath,
+					CurrentPayment = u.User.SquareMeterSize * 0.05M
+				}).ToListAsync();
+
+			return Ok(payments);
+
+
+		}
+
+		/*// İstifadəçinin öz formunun statusunu izləməsi üçün
 		// GET: api/payment/status/{id}
 		[HttpGet("status/{id}")]
 		public IActionResult GetFormStatus(int id)
@@ -113,6 +137,6 @@ namespace EBIMa.Controllers
 				form.Status,
 				ImageUrl = form.ImagePath != null ? form.ImagePath : null // Şəkil varsa yolu qaytar
 			});
-		}
+		}*/
 	}
 }
