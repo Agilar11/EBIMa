@@ -1,13 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using DnsClient;
 using DnsClient.Protocol;
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Oauth2.v2;
-using Google.Apis.Services;
+using DnsClient;
 
 namespace EBIMa.Models
 {
-	public class UserRegister
+	public class KomendantRegister
 	{
 		[Required(ErrorMessage = "Ad sahəsi tələb olunur.")]
 		[StringLength(50, ErrorMessage = "Ad ən çox 50 simvol ola bilər.")]
@@ -23,6 +20,7 @@ namespace EBIMa.Models
 		[CustomValidation(typeof(UserRegister), nameof(ValidateDomain))]
 		public string Email { get; set; } = string.Empty;
 
+
 		[Required(ErrorMessage = "Şifrə sahəsi tələb olunur.")]
 		[StringLength(100, MinimumLength = 6, ErrorMessage = "Şifrə ən az 6 simvol olmalıdır.")]
 		public string Password { get; set; } = string.Empty;
@@ -30,17 +28,6 @@ namespace EBIMa.Models
 		[Required(ErrorMessage = "MTK sahəsi tələb olunur.")]
 		public string MTK { get; set; } = string.Empty;
 
-		[Required(ErrorMessage = "Bina sahəsi tələb olunur.")]
-		public string Building { get; set; } = string.Empty;
-
-		[Required(ErrorMessage = "Blok nömrəsi sahəsi tələb olunur.")]
-		public string BlockNumber { get; set; } = string.Empty;
-
-		[Required(ErrorMessage = "Mərtəbə nömrəsi sahəsi tələb olunur.")]
-		public string Floor { get; set; } = string.Empty;
-
-		[Required(ErrorMessage = "Mənzil nömrəsi sahəsi tələb olunur.")]
-		public string ApartmentNumber { get; set; } = string.Empty;
 
 		[Required(ErrorMessage = "Ev sahibinin nömrəsi tələb olunur.")]
 		[Phone(ErrorMessage = "Düzgün telefon nömrəsi daxil edin.")]
@@ -48,12 +35,7 @@ namespace EBIMa.Models
 		public string OwnerPhoneNumber { get; set; } = string.Empty;
 
 
-		[Required(ErrorMessage = "Evin kvadrat metri daxil edilməlidir.")]
-		[Range(1, int.MaxValue, ErrorMessage = "Kvadrat metr müsbət bir ədəd olmalıdır.")]
-		public int SquareMeters { get; set; }
-
-
-
+		
 		public static ValidationResult ValidateDomain(object value, ValidationContext context)
 		{
 			if (value is string email)

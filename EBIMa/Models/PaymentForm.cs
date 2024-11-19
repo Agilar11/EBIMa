@@ -11,6 +11,7 @@ public class PaymentForm
 		public string? QueryType { get; set; }
 		public string? Status { get; set; } = "Pending"; // İstifadəçinin sorğu statusu
 		public string? ImagePath { get; set; } // Yüklənmiş şəkilin serverdəki fayl yolu
+		public decimal MonthlyPayment { get; set; }
 
 		public User? User { get; set; }
 

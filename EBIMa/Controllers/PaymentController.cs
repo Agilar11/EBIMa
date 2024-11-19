@@ -22,7 +22,7 @@ namespace EBIMa.Controllers
 			_configuration = configuration;
 		}
 
-		// POST: api/payment/submit
+		
 		[HttpPost("submit")]
 		public async Task<IActionResult> SubmitForm([FromForm] SubmitFormDTO form, IFormFile image)
 		{
@@ -63,8 +63,10 @@ namespace EBIMa.Controllers
 						Year = form.Year,
 						Status = "Pending",
 						QueryType = form.QueryType,
-						ImagePath = blobUrl
+						ImagePath = blobUrl,
 					};
+
+					paymentForm.MonthlyPayment = (_context.Users.FirstOrDefault(p => p.Id == paymentForm.UserId).SquareMeterSize) * 0.05M;
 
 					_context.PaymentForms.Add(paymentForm);
 					_context.SaveChanges();
@@ -86,7 +88,6 @@ namespace EBIMa.Controllers
 			}
 
 			var payments = await _context.PaymentForms
-				.Include(u => u.User)
 				.Where(u => u.UserId == userId)
 				.Select(u => new UserPaymentHistoryDTO
 				{
@@ -94,13 +95,27 @@ namespace EBIMa.Controllers
 					Month = u.Month,
 					Status = u.Status,
 					ImagePath = u.ImagePath,
-					CurrentPayment = u.User.SquareMeterSize * 0.05M
-				}).ToListAsync();
+					MonthlyPayment = u.MonthlyPayment,
+				}).OrderByDescending(p => p.PaymentDate)
+				.ToListAsync();
 
 			return Ok(payments);
-
-
 		}
+
+
+		[HttpGet("GetCurrentPayment")]
+		public async Task<IActionResult> GetCurrentPayment(Guid userId)
+		{
+			var user = await _context.Users.FindAsync(userId);
+
+			if (user is null)
+			{
+				return NotFound("İstifadəçi tapılmadı.");
+			}
+
+			return Ok(new { CurrentPayment = user.CurrentPayment });
+		}
+
 
 		/*// İstifadəçinin öz formunun statusunu izləməsi üçün
 		// GET: api/payment/status/{id}

@@ -4,6 +4,7 @@ using EBIMa.Models;
 using System.Threading.Tasks;
 using EBIMa.DTO;
 using Azure.Core;
+using System.Security.Cryptography;
 
 namespace EBIMa.Controllers
 {
@@ -20,9 +21,90 @@ namespace EBIMa.Controllers
 			_emailService = emailService;
 		}
 
+		#region Register Komendant
+
+		[HttpPost("RegisterKomendant")]
+		public async Task<IActionResult> RegisterKomendant([FromBody] KomendantRegister komendantRegister)
+		{
+			// Check if email domain has MX records
+			var emailValidator = new EmailValidator();
+			if (!await emailValidator.HasMxRecordsAsync(komendantRegister.Email))
+			{
+				return BadRequest("E-poçt ünvanı düzgün deyil və ya mövcud deyil.");
+			}
+
+			// Check if the email already exists
+			if (await _context.Users.AnyAsync(u => u.Email == komendantRegister.Email))
+			{
+				return BadRequest("İstifadəçi artıq mövcuddur.");
+			}
+
+			// Create password hash and salt
+			CreatePasswordHash(komendantRegister.Password, out byte[] passwordHash, out byte[] passwordSalt);
+
+			// Create a new Komendant user object
+			var komendant = new User
+			{
+				Name = komendantRegister.Name,
+				SurName = komendantRegister.SurName,
+				Email = komendantRegister.Email,
+				PasswordHash = passwordHash,
+				PasswordSalt = passwordSalt,
+				MTK = komendantRegister.MTK,
+				OwnerPhoneNumber = komendantRegister.OwnerPhoneNumber,
+				Role = "Komendant",
+				VerificationToken = CreateRandomToken()
+			};
+
+			// Add and save to the database
+			_context.Users.Add(komendant);
+			await _context.SaveChangesAsync();
+
+			// Generate verification link
+			string verificationLink = $"https://user.ebim.az/verify?token={komendant.VerificationToken}";
+
+			// Prepare and send the verification email
+			string subject = "Email təsdiqləmə";
+			string body = $"Zəhmət olmasa hesabınızı təsdiqləmək üçün bu linkə klik edin: <a href='{verificationLink}'>Buraya Tıklayın</a>";
+
+			_emailService.SendEmail(komendant.Email, subject, body);
+
+			return Ok("Komendant uğurla qeydiyyatdan keçdi. Email təsdiqləmə linki '"
+					  + komendant.Email + "' ünvanına göndərildi.");
+		}
+
+
+		// Method to verify password hash
+		private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+		{
+			using (var hmac = new HMACSHA512(passwordSalt))
+			{
+				var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+				return computedHash.SequenceEqual(passwordHash);
+			}
+		}
+
+		// Method to create password hash and salt
+		private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+		{
+			using (var hmac = new HMACSHA512())
+			{
+				passwordSalt = hmac.Key;
+				passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+			}
+		}
+
+		private string CreateRandomToken()
+		{
+			return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
+		}
+
+
+		#endregion
+
 		#region Resident Requests
 
-		// Get all requests for a specific superintendent
+		/*// Get all requests for a specific superintendent
 		[HttpGet("GetRequests")]
 		public async Task<IActionResult> GetRequests()
 		{
@@ -66,7 +148,7 @@ namespace EBIMa.Controllers
 			await _context.SaveChangesAsync();
 
 			return Ok("Request denied.");
-		}
+		}*/
 
 		#endregion
 
@@ -267,7 +349,7 @@ namespace EBIMa.Controllers
 
 		#endregion
 
-		#region Home
+		#region Ana Sehife
 
 		[HttpPost("Notification")]
 		public async Task<IActionResult> SubmitNotification(string message)
@@ -295,7 +377,7 @@ namespace EBIMa.Controllers
 					ApartmentNumber = p.User.ApartmentNumber,
 					PaymentDate = p.PaymentDate,
 					Month = p.Month,
-					CurrentPayment = p.User.SquareMeterSize * 0.05M,
+					MonthlyPayment = p.MonthlyPayment,
 					Status = p.Status,
 					ImagePath = p.ImagePath
 				}).OrderByDescending(p => p.PaymentDate)
@@ -313,6 +395,7 @@ namespace EBIMa.Controllers
 		public async Task<ActionResult<IEnumerable<ApartmentsDTO>>> GetUserApartmentsAsync()
 		{
 			var users = await _context.Users
+				.Where(u => u.Role == "Resident")
 				.Select(u => new ApartmentsDTO
 				{
 					UserId = u.Id,
@@ -349,11 +432,9 @@ namespace EBIMa.Controllers
 			};
 
 			return Ok(userDto);
-
 		}
 
 		#endregion
-
 
 
 		/*[HttpDelete("{id}")]

@@ -14,7 +14,7 @@
 			while (!stoppingToken.IsCancellationRequested)
 			{
 				var now = DateTime.Now;
-				if (now.Day == 10 && now.Hour == 0) // Hər ayın 1-də, gecə yarısı
+				if (now.Day == 28) 
 				{
 					using (var scope = _serviceProvider.CreateScope())
 					{
@@ -41,6 +41,5 @@
 				}
 			}
 		}
-
 	}
 }

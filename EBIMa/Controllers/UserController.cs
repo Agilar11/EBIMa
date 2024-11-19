@@ -37,7 +37,13 @@ namespace EBIMa.Controllers
 		[HttpPost("Register")]
 		public async Task<IActionResult> Register([FromBody] UserRegister userRegister)
 		{
-			
+			var emailValidator = new EmailValidator();
+			if (!await emailValidator.HasMxRecordsAsync(userRegister.Email))
+			{
+				return BadRequest("E-poçt ünvanı düzgün deyil və ya mövcud deyil.");
+			}
+
+
 			// Check if the user already exists asynchronously
 			if (await _context.Users.AnyAsync(u => u.Email == userRegister.Email))
 			{
@@ -61,7 +67,7 @@ namespace EBIMa.Controllers
 				Floor = userRegister.Floor,
 				ApartmentNumber = userRegister.ApartmentNumber,
 				OwnerPhoneNumber = userRegister.OwnerPhoneNumber,
-				Role = userRegister.Role,  // Role set based on registration
+				Role = "Resident",
 				SquareMeterSize = userRegister.SquareMeters,
 				VerificationToken = CreateRandomToken()
 			};
@@ -79,7 +85,8 @@ namespace EBIMa.Controllers
 
 			_emailService.SendEmail(user.Email, subject, body);
 
-			return Ok("İstifadəçi uğurla qeydiyyatdan keçdi. Email təsdiqləmə linki göndərildi.");
+			return Ok("İstifadəçi uğurla qeydiyyatdan keçdi. Email təsdiqləmə linki '"
+					  + user.Email + "' ünvanına göndərildi.");
 		}
 
 		[HttpPost("Login")]
@@ -189,7 +196,6 @@ namespace EBIMa.Controllers
 
 		}
 
-
 		// Method to verify password hash
 		private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
 		{
@@ -210,7 +216,6 @@ namespace EBIMa.Controllers
 			}
 		}
 
-		
 		// Forgot Password
 		[HttpPost("ForgotPassword")]
 		public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto request)
@@ -237,8 +242,7 @@ namespace EBIMa.Controllers
 
 			return Ok("Parolu sıfırlamaq üçün link email ünvanınıza göndərildi.");
 		}
-		
-
+	
 		// Reset Password
 		[HttpPost("ResetPassword")]
 		public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto request)
@@ -265,8 +269,7 @@ namespace EBIMa.Controllers
 			return Ok("Parol uğurla yeniləndi.");
 		}
 
-
-		[HttpPost("SubmitRequest")]
+		/*[HttpPost("SubmitRequest")]
 		public async Task<IActionResult> SubmitRequest([FromBody] ResidentRequest residentRequest)
 		{
 			// Fetch the resident from the database
@@ -287,12 +290,7 @@ namespace EBIMa.Controllers
 			await _context.SaveChangesAsync();
 
 			return Ok("Request submitted successfully.");
-		}
-
-
-
-		
-
+		}*/
 
 		[HttpPost("logout")]
 		public  IActionResult Logout()
@@ -300,7 +298,8 @@ namespace EBIMa.Controllers
 			return Ok("İstifadəçi uğurla çıxış etdi.");
 		}
 
-
+		
+		
 		// Method to create a random token for verification
 		private string CreateRandomToken()
 		{
