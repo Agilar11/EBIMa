@@ -2,6 +2,10 @@
 {
 	public class User
 	{
+
+		// ee9ec2ec-f94d-4e02-47a5-08dd0a156f02
+
+
 		public Guid Id { get; set; } = new Guid();
 		public string Name { get; set; } = string.Empty;
 		public string SurName { get; set; } = string.Empty;

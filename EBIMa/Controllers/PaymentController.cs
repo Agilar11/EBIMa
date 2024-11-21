@@ -28,15 +28,15 @@ namespace EBIMa.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				// Azure Blob Storage connection string
+				/*// Azure Blob Storage connection string
 				//string connectionString = Environment.GetEnvironmentVariable("connectionstring");
 
 				string connectionString = _configuration.GetValue<string>("AzureStorage:ConnectionString");
-				string containerName = "upload"; // Yüklənəcək konteyner adı
+				string containerName = "upload"; // Yüklənəcək konteyner adı*/
 
 				if (image != null && image.Length > 0)
 				{
-					// Blob Container ilə əlaqə qurmaq
+					/*// Blob Container ilə əlaqə qurmaq
 					BlobContainerClient containerClient = new BlobContainerClient(connectionString, containerName);
 					await containerClient.CreateIfNotExistsAsync();
 
@@ -50,10 +50,16 @@ namespace EBIMa.Controllers
 					using (var stream = image.OpenReadStream())
 					{
 						await blobClient.UploadAsync(stream);
+					}*/
+
+					string photoname = Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + Path.GetExtension(image.FileName);
+					using (Stream fileStream = new FileStream("wwwroot/images/" + photoname, FileMode.Create))
+					{
+						image.CopyTo(fileStream);
 					}
 
-					// Faylın URL-ni əldə edin və bazaya qeyd edin
-					string blobUrl = blobClient.Uri.ToString();
+
+					string imageUrl = photoname;
 
 					var paymentForm = new PaymentForm
 					{
@@ -63,7 +69,7 @@ namespace EBIMa.Controllers
 						Year = form.Year,
 						Status = "Pending",
 						QueryType = form.QueryType,
-						ImagePath = blobUrl,
+						ImagePath = imageUrl,
 					};
 
 					paymentForm.MonthlyPayment = (_context.Users.FirstOrDefault(p => p.Id == paymentForm.UserId).SquareMeterSize) * 0.05M;

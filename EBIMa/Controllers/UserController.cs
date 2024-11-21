@@ -163,9 +163,6 @@ namespace EBIMa.Controllers
 				MonthlyPayment = user.SquareMeterSize * 0.05M // Calculation
 			};
 
-
-			user.CurrentPayment = userDto.MonthlyPayment; // Cari ayın ödənişini təyin edin
-
 			return Ok(userDto);
 
 		}
