@@ -170,6 +170,12 @@ namespace EBIMa.Controllers
 		[HttpPut("{userId}")]
 		public async Task<IActionResult> UpdateUserAsync(Guid userId,[FromBody] UpdateUserDTO newUser)
 		{
+			if(string.IsNullOrEmpty(newUser.Name) || string.IsNullOrEmpty(newUser.Surname) 
+				|| string.IsNullOrEmpty(newUser.Email) || string.IsNullOrEmpty(newUser.PhoneNumber))
+			{
+				return BadRequest("Məlumatlarınızı düzgün daxil edin.");
+			}
+
 			var user = await _context.Users.FindAsync(userId);
 
 			if (user.VerifiedAt is null)
