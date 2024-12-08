@@ -22,45 +22,37 @@ namespace EBIMa.Controllers
 			_configuration = configuration;
 		}
 
-		
+
 		[HttpPost("submit")]
 		public async Task<IActionResult> SubmitForm([FromForm] SubmitFormDTO form, IFormFile image)
 		{
 			if (ModelState.IsValid)
 			{
-				/*// Azure Blob Storage connection string
-				//string connectionString = Environment.GetEnvironmentVariable("connectionstring");
-
-				string connectionString = _configuration.GetValue<string>("AzureStorage:ConnectionString");
-				string containerName = "upload"; // Yüklənəcək konteyner adı*/
-
 				if (image != null && image.Length > 0)
 				{
-					/*// Blob Container ilə əlaqə qurmaq
-					BlobContainerClient containerClient = new BlobContainerClient(connectionString, containerName);
-					await containerClient.CreateIfNotExistsAsync();
+					// Get the upload path from configuration
+					string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), _configuration.GetValue<string>("FileStorage:UploadPath"));
 
-					// Fayl adını təyin edin (özelleştirə bilərsiniz)
-					string blobName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
-
-					// Blob client yaratmaq
-					BlobClient blobClient = containerClient.GetBlobClient(blobName);
-
-					// Faylı yükləmək
-					using (var stream = image.OpenReadStream())
+					// Ensure the directory exists
+					if (!Directory.Exists(uploadPath))
 					{
-						await blobClient.UploadAsync(stream);
-					}*/
-
-					string photoname = Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + Path.GetExtension(image.FileName);
-					using (Stream fileStream = new FileStream("wwwroot/images/" + photoname, FileMode.Create))
-					{
-						image.CopyTo(fileStream);
+						Directory.CreateDirectory(uploadPath);
 					}
 
+					// Generate a unique file name
+					string fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
+					string fullPath = Path.Combine(uploadPath, fileName);
 
-					string imageUrl = photoname;
+					// Save the file to the server
+					using (var stream = new FileStream(fullPath, FileMode.Create))
+					{
+						await image.CopyToAsync(stream);
+					}
 
+					// Generate the relative file URL
+					string fileUrl = $"https://ebimtk-001-site1.mtempurl.com/uploads/{fileName}";
+
+					// Save file information to the database
 					var paymentForm = new PaymentForm
 					{
 						UserId = form.UserId,
@@ -69,20 +61,21 @@ namespace EBIMa.Controllers
 						Year = form.Year,
 						Status = "Pending",
 						QueryType = form.QueryType,
-						ImagePath = imageUrl,
+						ImagePath = fileUrl
 					};
 
-					paymentForm.MonthlyPayment = (_context.Users.FirstOrDefault(p => p.Id == paymentForm.UserId).SquareMeterSize) * 0.05M;
+					paymentForm.MonthlyPayment = _context.Users.SingleOrDefault(u => u.Id == paymentForm.UserId).SquareMeterSize * 0.05M;
 
 					_context.PaymentForms.Add(paymentForm);
-					_context.SaveChanges();
+					await _context.SaveChangesAsync();
 
-					return Ok(new { message = "Form uğurla göndərildi!" });
+					return Ok(new { message = "Form successfully submitted!" });
 				}
 			}
 
 			return BadRequest(ModelState);
 		}
+
 
 
 		[HttpGet("History/{userId}")]

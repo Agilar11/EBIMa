@@ -33,10 +33,29 @@ namespace EBIMa.Controllers
 				return BadRequest("E-poçt ünvanı düzgün deyil və ya mövcud deyil.");
 			}
 
-			// Check if the email already exists
-			if (await _context.Users.AnyAsync(u => u.Email == komendantRegister.Email))
+			// Check if an unverified user with the same email exists
+			var existingUser = await _context.Users
+				.FirstOrDefaultAsync(u => u.Email == komendantRegister.Email);
+
+			if (existingUser != null)
 			{
-				return BadRequest("İstifadəçi artıq mövcuddur.");
+				// If the email exists but the user is not verified, return a specific message
+				if (existingUser.VerifiedAt == null)
+				{
+					return BadRequest("E-poçt ünvanı artıq qeydiyyatdan keçib, lakin təsdiqlənməyib. Zəhmət olmasa email təsdiqləyin.");
+				}
+				else
+				{
+					return BadRequest("İstifadəçi artıq mövcuddur.");
+				}
+			}
+
+			var existingPhoneNumberUser = await _context.Users
+				.FirstOrDefaultAsync(u => u.OwnerPhoneNumber == komendantRegister.OwnerPhoneNumber);
+
+			if (existingPhoneNumberUser != null)
+			{
+				return BadRequest("Bu telefon nömrəsi artıq qeydiyyatdan keçib.");
 			}
 
 			// Create password hash and salt
@@ -53,7 +72,8 @@ namespace EBIMa.Controllers
 				MTK = komendantRegister.MTK,
 				OwnerPhoneNumber = komendantRegister.OwnerPhoneNumber,
 				Role = "Komendant",
-				VerificationToken = CreateRandomToken()
+				VerificationToken = CreateRandomToken(),
+				VerificationTokenExpires = DateTime.UtcNow.AddHours(24) // 24 saatlıq limit
 			};
 
 			// Add and save to the database
@@ -71,17 +91,6 @@ namespace EBIMa.Controllers
 
 			return Ok("Komendant uğurla qeydiyyatdan keçdi. Email təsdiqləmə linki '"
 					  + komendant.Email + "' ünvanına göndərildi.");
-		}
-
-
-		// Method to verify password hash
-		private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
-		{
-			using (var hmac = new HMACSHA512(passwordSalt))
-			{
-				var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-				return computedHash.SequenceEqual(passwordHash);
-			}
 		}
 
 		// Method to create password hash and salt
@@ -435,17 +444,6 @@ namespace EBIMa.Controllers
 		}
 
 		#endregion
-
-
-		/*[HttpDelete("{id}")]
-		public async Task<IActionResult> DeleteUser(Guid id)
-		{
-			var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == id);
-
-			_context.Users.Remove(user);
-			await _context.SaveChangesAsync();
-			return Ok("silindi");
-		*/
 
 
 	}

@@ -12,13 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 // Use Azure SQL Database connection string from appsettings.json
 builder.Services.AddDbContext<DataContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Register EmailService
 builder.Services.AddScoped<IEmailService, EmailService>();
@@ -46,10 +43,9 @@ builder.Services.AddAuthentication(options =>
 	};
 });
 
-
 builder.Services.AddAuthorization();
 
-builder.Services.AddEndpointsApiExplorer();
+// Add Swagger configuration
 builder.Services.AddSwaggerGen(c =>
 {
 	c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -62,42 +58,41 @@ builder.Services.AddSwaggerGen(c =>
 		Scheme = "Bearer"
 	});
 	c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-				{
+		{
 			new OpenApiSecurityScheme {
 				Reference = new OpenApiReference {
 					Type = ReferenceType.SecurityScheme,
 					Id = "Bearer"
 				}
-			}, new string[] {}}});
+			}, new string[] { }
+		}
+	});
 });
-
 
 // Add CORS policy
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        builder => builder
-            .AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader());
+	options.AddPolicy("AllowFrontend", policy =>
+	{
+		policy.WithOrigins("https://user.ebim.az", "http://localhost:5173") // Frontend URLs
+			  .AllowAnyHeader()
+			  .AllowAnyMethod();
+	});
 });
 
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseHttpsRedirection();
+app.UseCors("AllowFrontend");
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseStaticFiles();
 
 app.UseSwagger();
 app.UseSwaggerUI();
 
-
-app.UseHttpsRedirection();
-
-// Enable CORS
-app.UseCors("AllowAll");
-
-app.UseAuthentication();
-app.UseAuthorization();
 app.MapControllers();
+
 app.Run();

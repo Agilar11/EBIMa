@@ -34,5 +34,7 @@
 
 		public ICollection<ApplicationRequest>? ApplicationRequests { get; set; }
 		public ICollection<PaymentForm>? PaymentForms { get; set; }
+
+		public DateTime? VerificationTokenExpires { get; set; }
 	}
 }
